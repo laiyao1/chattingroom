@@ -1,4 +1,4 @@
-//有些情况下末位字符丢失，需修改读入的次数，改为多次连续读入，直到收不到字符
+
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
 

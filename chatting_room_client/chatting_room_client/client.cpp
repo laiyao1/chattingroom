@@ -1,4 +1,5 @@
 //有些情况下末位字符丢失，需修改读入的次数，改为多次连续读入，直到收不到字符
+//对于客户端来说，
 
 #include<iostream>
 #include<cstdio>
@@ -40,6 +41,8 @@ public:
 
 		sock_ptr->connect(ep);
 		std::cout << "server: " << (sock_ptr->remote_endpoint()).address() << ":" << (sock_ptr->remote_endpoint()).port() << std::endl;
+
+		sock_ptr->write_some(boost::asio::buffer(user_name));
 	}
 
 	static void input_data(class session* ptr)
@@ -55,7 +58,7 @@ public:
 
 	void set_up()
 	{
-		vector<char> recv_message(128);
+		
 		/*
 		while (1)
 		{
@@ -74,6 +77,7 @@ public:
 
 		while (1)
 		{
+			vector<char> recv_message(128);
 			size_t len = sock_ptr->read_some(boost::asio::buffer(recv_message));
 			if (len > 0)
 			{
@@ -113,10 +117,11 @@ int main()
 {
 	cout << "welcome to chatting room! You are a client port." << endl;
 	cout << "please input your username:" << endl;
-	//cin >> user_name;
 	string user_name;
-	user_name = "laiyao2";
-	cout << "user name has been set to laiyao2" << endl;
+	cin >> user_name;
+	
+	//user_name = "laiyao2";
+	//cout << "user name has been set to laiyao2" << endl;
 	unsigned short port_number;
 	port_number = 9876;
 	while (port_number < 1024)
